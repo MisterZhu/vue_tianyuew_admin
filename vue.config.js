@@ -10,7 +10,7 @@ module.exports = defineConfig({
     proxy: {
       // 配置跨域
       "/api": {
-        target: "https://imissu.herokuapp.com/api/",
+        target: "http://127.0.0.1:8087/api/",
         pathRewrite: { "^/api": "" },
         // ! 开启代理
         changeOrigin: true,

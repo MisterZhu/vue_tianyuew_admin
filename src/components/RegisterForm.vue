@@ -23,7 +23,7 @@
     </el-form-item>
 
     <el-form-item>
-      <el-button @click="handleRegister('registerForm')" type="primary" class="submit-btn">注册</el-button>
+      <el-button @click="handleRegister(registerForm)" type="primary" class="submit-btn">注册</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -33,7 +33,7 @@ import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 
 
-const axios = inject('axios')
+const server = inject('server')
 const router = useRouter()
 const props = defineProps({
   registerUser: {
@@ -52,8 +52,7 @@ const handleRegister = (formEl: any): void => {
   formEl.validate((valid: boolean) => {
     if (valid) {
       // @ts-ignore
-      axios.post('/api/v1/auth/register', props.registerUser)  // 已使用代理转换 /api 地址
-        .then((res: any) => {
+      server.userApi.postRegisterUser(props.registerUser).then((res: any) => {
           // ? 注册成功
           alert('注册成功')
           // ? 路由跳转

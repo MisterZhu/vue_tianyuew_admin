@@ -2,17 +2,18 @@
 import { ref } from 'vue';
 
 interface User {
-    email: string;
+    telephone: string;
     password: string;
 }
 export const loginUser = ref ({
-    email: "",
+    telephone: "",
     password: "",
 });
 
 interface Rules {
-    email: {
-        type: string;
+    telephone: {
+        // type: string;
+        pattern: RegExp;
         message: string;
         required: boolean;
         trigger: string;
@@ -33,10 +34,11 @@ interface Rules {
 }
 
 export const rules = ref({
-    email: [
+    telephone: [
         {
-            type: "email",
-            message: "邮箱格式不对",
+            // type: "email",
+            pattern: /^[1]([3-9])[0-9]{9}$/,
+            message: "请正确输入11位手机号码",
             required: true,
             trigger: "blur",
         },
