@@ -2,7 +2,7 @@ import { ref } from "vue";
 
 interface RegisterUser {
   name: string;
-  email: string;
+  telephone: string;
   password: string;
   password2: string;
   role: string;
@@ -10,7 +10,7 @@ interface RegisterUser {
 
 export const registerUser = ref<RegisterUser>({
   name: "",
-  email: "",
+  telephone: "",
   password: "",
   password2: "",
   role: "",
@@ -27,8 +27,8 @@ interface RegisterRules {
     message: string;
     trigger: string;
   })[];
-  email: {
-    type: string;
+  telephone: {
+    pattern: RegExp;
     message: string;
     required: boolean;
     trigger: string;
@@ -84,10 +84,11 @@ export const registerRules = ref<RegisterRules>({
       trigger: "blur",
     },
   ],
-  email: [
+  telephone: [
     {
-      type: "email",
-      message: "邮箱不能为空...",
+      // type: "email",
+      pattern: /^[1]([3-9])[0-9]{9}$/,
+      message: "请正确输入11位手机号码",
       required: true,
       trigger: "blur",
     },

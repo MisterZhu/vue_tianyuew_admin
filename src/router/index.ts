@@ -1,10 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import IndexView from "@/views/home/IndexView.vue";
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/home/Home.vue'),
+    children: [
+      {
+        path: "",
+        component: IndexView,
+      },
+      {
+        path: "/about",
+        name: "about",
+        component: () => import(/* webpackChunkName: "about" */ '../views/about/AboutUs.vue')
+      },
+    ],
   },
   {
     path: '/login',

@@ -10,7 +10,7 @@ export class HttpService {
     }
     public postRegisterUser(params = {}){
         return request({
-            url:'/auth/register',
+            url:'/user/register',
             method:'post',
             data: params
         })

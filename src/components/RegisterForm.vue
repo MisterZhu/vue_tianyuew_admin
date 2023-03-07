@@ -2,10 +2,10 @@
   <el-form ref="registerForm" :model="registerUser" :rules="registerRules" label-width="100px"
     class="registerForm sign-up-form">
     <el-form-item label="用户名" prop="name">
-      <el-input v-model="registerUser.name" placeholder="Enter UserName..."></el-input>
+      <el-input v-model="registerUser.name" placeholder="请填写用户名..."></el-input>
     </el-form-item>
-    <el-form-item label="邮箱" prop="email">
-      <el-input v-model="registerUser.email" placeholder="Enter Email..."></el-input>
+    <el-form-item label="手机号" prop="telephone">
+      <el-input v-model="registerUser.telephone" placeholder="输入手机号..."></el-input>
     </el-form-item>
     <el-form-item label="密码" prop="password">
       <el-input v-model="registerUser.password" type="password" placeholder="Enter Password..."></el-input>
@@ -16,9 +16,9 @@
 
     <el-form-item label="选择身份">
       <el-select v-model="registerUser.role" placeholder="请选择身份">
-        <el-option label="管理员" value="admin"></el-option>
-        <el-option label="用户" value="user"></el-option>
-        <el-option label="游客" value="visitor"></el-option>
+        <el-option label="管理员" value="0"></el-option>
+        <el-option label="用户" value="1"></el-option>
+        <el-option label="游客" value="2"></el-option>
       </el-select>
     </el-form-item>
 

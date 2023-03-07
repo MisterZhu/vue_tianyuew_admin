@@ -15,13 +15,15 @@
             <p>忘记密码？<a href="">立即找回</a></p>
         </div>
     </el-form>
+
+
 </template>
 <script lang="ts" setup>
 import { ref, inject } from 'vue';
 import { useRouter } from 'vue-router'
 
-// let axios = inject('axios')
 const server = inject('server')
+let axios = inject('axios')
 
 let router = useRouter()
 
@@ -39,37 +41,46 @@ const props = defineProps({
 // ? 获取 DOM 元素
 let loginForm = ref()
 // ? 触发登陆方法
-const handleLogin = (formEl: any):void => {
-  formEl.validate((valid:boolean) => {
-    if (valid) {
-        console.log(props.loginUser)
-        /* /api = https://imissu.herokuapp.com/api/ */
-      // @ts-ignore
-      server.userApi.postLoginUser(props.loginUser).then((res: any) => {
-        console.log(res.data)
-        // ? 登陆成功，存储 token 到 LS 中
-        const {token} = res
-        const msg : string = res.msg
-        console.log(msg)
+const handleLogin = (formEl: any): void => {
+    formEl.validate((valid: boolean) => {
+        if (valid) {
+            console.log(props.loginUser)
+            /* /api = https://imissu.herokuapp.com/api/ */
+            // @ts-ignore
+            server.userApi.postLoginUser(props.loginUser).then((res: any) => {
+                console.log(res.data)
+                // ? 登陆成功，存储 token 到 LS 中
+                const { token } = res
+                const msg: string = res.msg
+                console.log(msg)
 
-        localStorage.setItem('msToken', token)
-        // ElMessage(msg)
-        // ? 路由跳转
-        if (res.code === 200) {
-            router.push('/')
+                localStorage.setItem('msToken', token)
+                // ElMessage(msg)
+                // ? 路由跳转
+                if (res.code === 200) {
+                    router.push('/')
+                }
+            })
+            // @ts-ignore
+            // axios.post('/api/v1/user/login', props.loginUser)  // 已使用代理转换 /api 地址
+            // .then((res: any) => {
+            //   console.log(res.data)
+            //   // ? 登陆成功，存储 token 到 LS 中
+            //   const {token} = res.data
+            //   localStorage.setItem('msToken', token)
+
+            // })
+            formEl.resetFields()
+        } else {
+            console.log('提交的格式有误，请重新提交')
+            return false
         }
-      })
-      formEl.resetFields()
-    } else {
-      console.log('提交的格式有误，请重新提交')
-      return false
-    }
-  })
+    })
 }
 
 const handleForgot = () => {
-  // ? 跳转路由
-  router.push('/forgotpassword')
+    // ? 跳转路由
+    router.push('/forgotpassword')
 }
 
 </script>
@@ -95,5 +106,4 @@ const handleForgot = () => {
 
 .tiparea p a {
     color: #409eff;
-}
-</style>
+}</style>

@@ -1,6 +1,7 @@
 import axios, { InternalAxiosRequestConfig, AxiosResponse } from 'axios';
-import { ElLoading } from 'element-plus';
-import { ElMessage } from 'element-plus'
+// import { ElLoading, ElMessage } from 'element-plus';
+// import { ElLoading } from 'element-plus';
+// import { ElMessage } from 'element-plus'
 
 
 let loading: any;
@@ -25,17 +26,25 @@ const endLoading = () => {
   loading.close();
 }
 const Service = axios.create({
-  baseURL:'/api/v1',
-  // headers:{
-  //     'Content-Type':"application/json;charset=UTF-8"
-  // },
-  timeout:10000
+  baseURL: '/api/v1',
+  headers: {
+    // FormData格式请求头
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    // json格式请求头
+    // "Content-Type": "application/json"
+
+  },
+  timeout: 10000
 })
 // 请求拦截
 Service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   // 加载
   startLoading();
-  // config.headers.common['Authorization']=window.sessionStorage.getItem('token')===null?null:window.sessionStorage.getItem('token')
+  const tokenValue = localStorage.getItem('msToken');
+  if (tokenValue) {
+    // 将 token 设置到请求头中，以便后端进行鉴权
+    Service.defaults.headers.common['Authorization'] = `Bearer ${tokenValue}`;
+  }
   return config;
 })
 
@@ -47,7 +56,7 @@ Service.interceptors.response.use((response: AxiosResponse<any>) => {
   const res = response.data
   if (res.code === 200) {
     return res;
-  }else{
+  } else {
     ElMessage.error(res.msg || '网络异常');
     return res;
   }
