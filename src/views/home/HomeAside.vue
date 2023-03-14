@@ -13,54 +13,68 @@ import { isCollapse } from "./isCollapse";
             <el-sub-menu index="1">
                 <template #title>
                     <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>权限管理</span>
+                        <IEpHomeFilled />
+                    </el-icon> 
+                    <span>课程管理</span>
                 </template>
-                <el-menu-item>
+                <el-menu-item index="/course">
                     <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>新增权限</span>
+                        <IEpTickets />
+                    </el-icon>
+                    <span>瑜伽课程</span>
                 </el-menu-item>
-                <el-menu-item>
-                    <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>删除权限</span>
-                </el-menu-item>
+                
             </el-sub-menu>
 
-            <el-sub-menu index="2">
+            <el-sub-menu  index="2">
                 <template #title>
                     <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>用户管理</span>
+                        <IEpUserFilled />
+                    </el-icon>
+
+                    <span>用户管理</span>
                 </template>
-                <el-menu-item>
+                <el-menu-item  index="/about">
                     <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>管理员</span>
+                        <IEpUser />
+                    </el-icon>
+                    <span>用户员</span>
                 </el-menu-item>
-                <el-menu-item>
+                <el-menu-item  index="/about">
+
                     <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>业务员</span>
+                        <IEpUser />
+                    </el-icon>
+                    <span>用户token</span>
                 </el-menu-item>
-                <el-menu-item>
+                <el-menu-item  index="/about">
                     <el-icon>
-                        <IEpSetting />
-                    </el-icon> <span>客户</span>
+                        <IEpUser />
+                    </el-icon>
+                    <span>微信token</span>
                 </el-menu-item>
             </el-sub-menu>
-            <el-menu-item>
-                <el-icon>
-                    <IEpSetting />
-                </el-icon> <span>课程管理</span>
-            </el-menu-item>
-
-            <el-menu-item>
-                <el-icon>
-                    <IEpSetting />
-                </el-icon> <span>广告管理</span>
-            </el-menu-item>
+            <el-sub-menu index="3">
+                <template #title>
+                    <el-icon>
+                        <IEpUploadFilled />
+                    </el-icon>
+                    <span>系统管理</span>
+                </template>
+                <el-menu-item  index="/system">
+                    <el-icon>
+                        <IEpPicture />
+                    </el-icon>
+                    <span>图片管理</span>
+                </el-menu-item>
+                <el-menu-item  index="/system">
+                    <el-icon>
+                        <IEpFolderRemove />
+                    </el-icon>
+                    <span>数据字典</span>
+                </el-menu-item>
+            </el-sub-menu>
+        
         </el-menu>
     </el-aside>
 </template>
@@ -73,15 +87,17 @@ import { isCollapse } from "./isCollapse";
 }
 
 .el-menu {
-  background-color: #e9e9eb;
-  border-right: none;
-  width: 150px;
-  &.el-menu--collapse {
-    width: 60px;
-    & h1 {
-      display: none;
+    background-color: #e9e9eb;
+    border-right: none;
+    width: 150px;
+
+    &.el-menu--collapse {
+        width: 60px;
+
+        & h1 {
+            display: none;
+        }
     }
-  }
 }
 
 

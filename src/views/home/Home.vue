@@ -2,6 +2,7 @@
 
 import HomeAside from "./HomeAside.vue";
 import HomeHeader from "./HomeHeader.vue";
+
 </script>
 
 <template>
@@ -27,6 +28,6 @@ import HomeHeader from "./HomeHeader.vue";
 }
 .el-main {
   background-color: #f4f4f5;
-  padding-right: 0;
+  padding-right: 10px;
 }
 </style>

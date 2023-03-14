@@ -17,7 +17,7 @@ module.exports = defineConfig({
     proxy: {
       // 配置跨域
       "/api": {
-        target: "http://106.52.86.134:8087/api/",
+        target: process.env.VUE_APP_BASE_API,
         pathRewrite: { "^/api": "" },
         // ! 开启代理
         changeOrigin: true,
@@ -25,6 +25,7 @@ module.exports = defineConfig({
     },
   },
   configureWebpack: {
+    devtool:'source-map',
     plugins: [
       AutoImport({
         imports: ["vue"],

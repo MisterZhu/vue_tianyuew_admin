@@ -52,7 +52,7 @@ const handleRegister = (formEl: any): void => {
   formEl.validate((valid: boolean) => {
     if (valid) {
       // @ts-ignore
-      server.userApi.postRegisterUser(props.registerUser).then((res: any) => {
+      server.userApi.postUserRegister(props.registerUser).then((res: any) => {
           // ? 注册成功
           alert('注册成功')
           // ? 路由跳转

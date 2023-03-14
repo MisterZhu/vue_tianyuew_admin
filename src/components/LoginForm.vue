@@ -15,17 +15,18 @@
             <p>忘记密码？<a href="">立即找回</a></p>
         </div>
     </el-form>
-
-
 </template>
 <script lang="ts" setup>
 import { ref, inject } from 'vue';
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import request from "@/api/requestconfig";
 
 const server = inject('server')
 let axios = inject('axios')
 
 let router = useRouter()
+let route = useRoute()
+const userInfo = ref({ username: "", avater: "", telephone: "", })
 
 const props = defineProps({
     loginUser: {
@@ -47,19 +48,21 @@ const handleLogin = (formEl: any): void => {
             console.log(props.loginUser)
             /* /api = https://imissu.herokuapp.com/api/ */
             // @ts-ignore
-            server.userApi.postLoginUser(props.loginUser).then((res: any) => {
+            server.userApi.postUserLogin(props.loginUser).then((res: any) => {
                 console.log(res.data)
                 // ? 登陆成功，存储 token 到 LS 中
-                const { token } = res
+                const { token } = res.data
                 const msg: string = res.msg
                 console.log(msg)
 
-                localStorage.setItem('msToken', token)
+                localStorage.setItem('local_token', token)
                 // ElMessage(msg)
                 // ? 路由跳转
                 if (res.code === 200) {
-                    router.push('/')
+                    request.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    getUserInfo()
                 }
+
             })
             // @ts-ignore
             // axios.post('/api/v1/user/login', props.loginUser)  // 已使用代理转换 /api 地址
@@ -67,7 +70,7 @@ const handleLogin = (formEl: any): void => {
             //   console.log(res.data)
             //   // ? 登陆成功，存储 token 到 LS 中
             //   const {token} = res.data
-            //   localStorage.setItem('msToken', token)
+            //   localStorage.setItem('local_token', token)
 
             // })
             formEl.resetFields()
@@ -77,7 +80,22 @@ const handleLogin = (formEl: any): void => {
         }
     })
 }
+// 获取用户信息
+const getUserInfo = () => {
+    // @ts-ignore
+    server.userApi.getUserInfo().then((res: any) => {
+        console.log(res.data)
+        // ? 登陆成功，存储 token 到 LS 中
+        // userInfo.value = res.data
 
+        // localStorage.setItem('local_user_info', userInfo)
+        localStorage.setItem('local_user_info',JSON.stringify(res.data));
+
+        router.push(route.query.redirect as string || '/')
+
+    })
+
+}
 const handleForgot = () => {
     // ? 跳转路由
     router.push('/forgotpassword')
@@ -106,4 +124,5 @@ const handleForgot = () => {
 
 .tiparea p a {
     color: #409eff;
-}</style>
+}
+</style>

@@ -23,9 +23,19 @@ const endLoading = () => {
 
 // * 请求拦截
 axios.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  // ? 加载
-  startLoading()
-  return config
+  // 加载
+  startLoading();
+  const tokenValue = localStorage.getItem('local_token');
+  console.log("token = " + `Bearer ${tokenValue}`)
+
+  if (tokenValue) {
+    // 将 token 设置到请求头中，以便后端进行鉴权
+    axios.defaults.headers.common['Authorization'] = `Bearer ${tokenValue}`;
+
+  }
+  console.log(config)
+
+  return config;
 })
 
 // * 响应拦截
