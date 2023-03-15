@@ -25,25 +25,15 @@ const routes = [
       },
       
       {
-        path: "/course",
+        path: "course",
         name: "course",
         meta:{
           title:'课堂'
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/course/CourseIndex.vue'),
-        children:[
-          {
-            path:'/second',
-            name:'second',
-            component:()=>import('@/views/course/second.vue'),
-            meta:{
-              title:'second'
-            }
-          }
-        ]
       },
       {
-        path: "/course/create",
+        path: "course/create",
         name: "course_create",
         meta:{
           title:'创建课程'
@@ -51,7 +41,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/course/CourseAddOrEdit.vue')
       },
       {
-        path: "/course/:id/detail",
+        path: "course/:id/detail",
         name: "course_detail",
         meta:{
           title:'课程详情'
@@ -59,7 +49,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/course/CourseDetail.vue')
       },
       {
-        path: "/course/:id/add_article",
+        path: "course/:id/add_article",
         name: "article_add",
         meta:{
           title:'添加章节'
@@ -67,7 +57,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/course/ArticleAdd.vue')
       },
       {
-        path: "/about",
+        path: "about",
         name: "about",
         meta:{
           title:'关羽我们'
@@ -75,7 +65,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/about/AboutUs.vue')
       },
       {
-        path: "/system",
+        path: "system",
         name: "system",
         meta:{
           title:'系统管理'

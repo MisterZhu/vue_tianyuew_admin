@@ -1,5 +1,15 @@
 import { ref } from "vue";
 
+interface breadcrumb {
+  name: string;
+  to: string;
+}
+
+export const Breadcrumb = ref<breadcrumb>({
+  name: "",
+  to: "",
+});
+
 interface RegisterUser {
   name: string;
   telephone: string;
