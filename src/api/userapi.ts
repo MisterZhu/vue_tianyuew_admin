@@ -17,6 +17,7 @@ export type ArticleItem = {
     title: string
     content: string
     img: string
+    isActive: boolean
 }
 
 // export const geAllCategorys = (params = {}) => {

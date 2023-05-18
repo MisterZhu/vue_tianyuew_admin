@@ -10,7 +10,6 @@ import HomeBread from "./HomeBread.vue";
     <el-container>
       <HomeAside />
       <el-container class="header-and-main">
-        <!-- <HomeHeader /> -->
         <HomeBread />
         <el-main>
           <el-scrollbar>
@@ -33,3 +32,4 @@ import HomeBread from "./HomeBread.vue";
   padding-right: 10px;
 }
 </style>
+

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import IndexView from "@/views/home/IndexView.vue";
 
 const routes = [
@@ -78,11 +78,25 @@ const routes = [
     path: '/:catchAll(.*)',
     name: '404',
     component: () => import(/* webpackChunkName: "about" */ '../views/404.vue')
+  },
+  {
+    path: '/header',
+    name: 'header',
+    component: () => import(/* webpackChunkName: "about" */ '../views/home/HomeHeader.vue')
+  },
+  {
+    path: '/appweb',
+    name: 'appweb',
+    component: () => import(/* webpackChunkName: "about" */ '../views/appweb/AppWeb.vue'),
+    children: [
+
+    ]
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  // history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
 

@@ -83,7 +83,7 @@ const uploadSuccess: UploadProps['onSuccess'] = (uploadFile, uploadFiles) => {
     console.log('上传成功触发的方法uploadFiles', uploadFiles)
 
     // 拼接图片地址
-    const img = "http://rrak2o26j.hd-bkt.clouddn.com/" + uploadFile.key
+    const img = process.env.VUE_APP_QINIU_URL + uploadFile.key
 
     console.log(img)
 
@@ -198,7 +198,7 @@ const addArticle = async () => {
         <el-form-item label="视频">
         </el-form-item>
         <div v-show="!videoSrc" class="video-upload">
-            <el-upload ref="uploadRef" class="upload-demo" drag action="http://upload.qiniup.com" :data="QiniuData"
+            <el-upload ref="uploadRef" class="upload-demo" drag action="https://upload.qiniup.com" :data="QiniuData"
                 :before-upload="beforeUpload" :on-success="uploadSuccess" :on-error="uploadError"
                 :on-progress="uploadProgress" :on-remove="handleRemove" :file-list="fileList">
                 <el-icon class="el-icon--upload"><IEpupload-filled /></el-icon>

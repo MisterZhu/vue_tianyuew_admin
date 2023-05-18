@@ -34,7 +34,7 @@ const handleRemove: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
 
   // @ts-ignore
   const key = uploadFile.response.key as string
-  const img = "http://rrak2o26j.hd-bkt.clouddn.com/" + key
+  const img = process.env.VUE_APP_QINIU_URL + key
   const index = form.imageUrls.indexOf(img);
   if (index !== -1) {
     form.imageUrls.splice(index, 1);
@@ -55,7 +55,7 @@ const uploadSuccess: UploadProps['onSuccess'] = (uploadFile, uploadFiles) => {
   console.log('上传成功触发的方法uploadFiles', uploadFiles)
 
   // 拼接图片地址
-  const img = "http://rrak2o26j.hd-bkt.clouddn.com/" + uploadFile.key
+  const img = process.env.VUE_APP_QINIU_URL + uploadFile.key
 
   console.log(img)
 
@@ -177,7 +177,7 @@ const resetForm = async () => {
         type="textarea"></el-input>
     </el-form-item>
     <el-form-item label="图片">
-      <el-upload class="upload-demo" action="http://upload.qiniup.com" :data="QiniuData" :file-list="form.imageUrls"
+      <el-upload class="upload-demo" action="https://upload.qiniup.com" :data="QiniuData" :file-list="form.imageUrls"
         accept="image/jpeg, image/jpg, image/png" list-type="picture-card" :before-upload="beforeUpload"
         :on-preview="handlePictureCardPreview" :on-success="uploadSuccess" :on-error="uploadError"
         :on-remove="handleRemove">

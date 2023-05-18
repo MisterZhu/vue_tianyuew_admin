@@ -1,105 +1,172 @@
-<script lang="ts" setup>
-import { isCollapse } from "./isCollapse";
-import { ElMessage, ElMessageBox } from 'element-plus'
-import 'element-plus/es/components/message-box/style/index'
-import 'element-plus/es/components/message/style/index'
-import { useRouter } from "vue-router";
-// import axios from '@/http';
-let userInfo = ref({ username: "", avater: "", telephone: "", })
-
-const server = inject('server')
-let router = useRouter()
-
-const getUserIn = () => {
-    // @ts-ignore
-    var uInfo = JSON.parse(localStorage.getItem('local_user_info'));
-
-    console.log("userInfo = " + `${uInfo}`)
-    if (uInfo) {
-        userInfo = uInfo;
-    }else{
-        // 用户信息为空，跳转登录
-        router.push({name: "login"})
-    }
-}
-getUserIn()
-// 退出登录
-const handleLogout = async () => {
-    // 1.弹框询问
-    await ElMessageBox.confirm("确认退出登录？", "退出登录", {
-        confirmButtonText: "确认",
-        cancelButtonText: "取消",
-        type: 'warning'
-    }).catch(() => {
-        return new Promise(() => { })
-    })
-    // 2.执行退出
-    // @ts-ignore
-    await server.userApi.postUserLogout().catch(() => { })
-    ElMessage.success("退出成功")
-    // 3.清空token，跳转到登录
-    localStorage.removeItem("local_token")
-    localStorage.removeItem('local_user_info')
-    // @ts-ignore
-    router.push({ name: "login" })
-}
-
-</script>
-
 <template>
-    <el-header>
-        <!-- 图标 -->
-        <el-icon @click="isCollapse = !isCollapse">
-            <IEpExpand v-show="isCollapse" />
-            <IEpFold v-show="!isCollapse" />
-        </el-icon>
-        <!-- 面包屑 -->
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="/">管理</a></el-breadcrumb-item>
-            <el-breadcrumb-item>课程列表</el-breadcrumb-item>
-            <el-breadcrumb-item>课程详情</el-breadcrumb-item>
-        </el-breadcrumb>
+    <div class="app-container">
+        <div class="header">
+            <img class="header-img"
+                src="https://imgs0.zupu.cn/photos/common/2023/03/14/7ad3c5bc-9606-443f-848b-d682a62121f0.png"
+                alt="Header Image">
+            <!-- <div class="tab" :class="{ active: activeTab === 1 }" @click="activeTab = 1">Tab1</div>
+            <div class="tab" :class="{ active: activeTab === 2 }" @click="activeTab = 2">Tab2</div> -->
 
-        <!-- 下拉菜单 -->
-        <el-dropdown>
-            <span class="el-dropdown-link">
-                <el-avatar :size="32" :src="userInfo.avater" />
-
-                <el-icon class="el-icon--right">
-                    <IEpArrow-down />
-                </el-icon>
-            </span>
-            <template #dropdown>
-                <el-dropdown-menu>
-                    <el-dropdown-item>{{ userInfo.username }}</el-dropdown-item>
-                    <el-dropdown-item divided @click="handleLogout">退出</el-dropdown-item>
-                </el-dropdown-menu>
-            </template>
-        </el-dropdown>
-
-    </el-header>
+        </div>
+        <div class="tab-container">
+            <div class="tab" :class="{ active: activeTab === 1 }" @click="activeTab = 1">Tab1</div>
+            <div class="tab" :class="{ active: activeTab === 2 }" @click="activeTab = 2">Tab2</div>
+        </div>
+        <div class="columns">
+            <div v-if="activeTab === 1">
+                <ul>
+                    <li v-for="(item, index) in pictures" :key="index">{{ item.src }}</li>
+                </ul>
+            </div>
+            <div v-else-if="activeTab === 2">
+                <ul>
+                    <li v-for="(item, index) in texts" :key="index">{{ item.content }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </template>
-
+  
+<script>
+export default {
+    data() {
+        return {
+            activeTab: 1,
+            pictures: [
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 1, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 2, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 3, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 4, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+                { id: 5, src: 'https://imgs0.zupu.cn/photos/common/2023/03/14/706830fc-1ad9-41c2-a2cd-2daffb27bfc9.png' },
+            ],
+            texts: [
+                { id: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+                { id: 2, content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+                { id: 3, content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+                { id: 4, content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+                { id: 5, content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+                { id: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+                { id: 2, content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+                { id: 3, content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+                { id: 4, content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+                { id: 5, content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+                { id: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+                { id: 2, content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+                { id: 3, content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+                { id: 4, content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+                { id: 5, content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+                { id: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+                { id: 2, content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+                { id: 3, content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+                { id: 4, content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+                { id: 5, content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+                { id: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+                { id: 2, content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+                { id: 3, content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+                { id: 4, content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+                { id: 5, content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+                { id: 1, content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+                { id: 2, content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+                { id: 3, content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+                { id: 4, content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+                { id: 5, content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
+            ],
+        };
+    },
+};
+</script>
+  
 <style scoped>
-.el-header {
+.app-container {
     display: flex;
-    align-items: center;
-    background-color: #dedfe0;
+    flex-direction: column;
+    height: 100vh;
 }
 
-.el-header .el-icon {
-    /* padding-left: 10px; */
-    padding-right: 10px;
-}
-
-.el-dropdown {
-    margin-left: auto;
-}
-
-.el-dropdown .el-dropdown-link {
+.header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 0 20px;
+    height: 80px;
+    z-index: 1;
+}
+
+.header-img {
+    height: 50px;
+    width: auto;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.tab.active {
+    color: #000;
+    border-bottom: 4px solid #000;
+}
+
+.columns {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.columns ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.columns li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1.5;
 }
 </style>
+  
