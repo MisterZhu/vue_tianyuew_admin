@@ -32,26 +32,25 @@ import { isCollapse } from "./isCollapse";
                         <IEpUserFilled />
                     </el-icon>
 
-                    <span>用户管理</span>
+                    <span>社区管理</span>
                 </template>
-                <el-menu-item  index="/about">
-                    <el-icon>
-                        <IEpUser />
-                    </el-icon>
-                    <span>用户员</span>
+                <el-menu-item  index="/tyw_admin">
+                    <el-icon><IEpAlarmClock /></el-icon>
+                    <span>认证申请</span>
                 </el-menu-item>
-                <el-menu-item  index="/about">
-
+                <el-menu-item  index="/tyw_users">
                     <el-icon>
                         <IEpUser />
                     </el-icon>
-                    <span>用户token</span>
+                    <span>用户管理</span>
                 </el-menu-item>
-                <el-menu-item  index="/about">
-                    <el-icon>
-                        <IEpUser />
-                    </el-icon>
-                    <span>微信token</span>
+                <el-menu-item  index="/tyw_community">
+                    <el-icon><IEpOfficeBuilding /></el-icon>
+                    <span>社区管理</span>
+                </el-menu-item>
+                <el-menu-item  index="/tyw_feedback">
+                    <el-icon><IEpHelp /></el-icon>
+                    <span>用户反馈</span>
                 </el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="3">

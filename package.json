@@ -14,6 +14,7 @@
     "node-sass": "^8.0.0",
     "process": "^0.11.10",
     "sass": "^1.58.3",
+    "unplugin-auto-import": "^0.16.7",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@iconify-json/ep": "^1.1.9",
+    "@types/node": "^20.9.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",
@@ -28,9 +30,10 @@
     "@vue/cli-service": "~5.0.0",
     "sass-loader": "^13.2.0",
     "typescript": "~4.5.5",
-    "unplugin-auto-import": "^0.15.0",
+    "unplugin-auto-import": "^0.16.7",
     "unplugin-icons": "^0.15.3",
-    "unplugin-vue-components": "^0.24.0"
+    "unplugin-vue-components": "^0.25.2",
+    "vue-directive-image-previewer": "^2.2.2"
   },
   "browserslist": [
     "> 1%",

@@ -65,6 +65,38 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/about/AboutUs.vue')
       },
       {
+        path: "tyw_admin",
+        name: "tyw_admin",
+        meta:{
+          title:'认证申请'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/tyw_admin/TywAuthApply.vue')
+      },
+      {
+        path: "tyw_users",
+        name: "tyw_users",
+        meta:{
+          title:'用户列表'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/tyw_users/TywUsers.vue')
+      },
+      {
+        path: "tyw_community",
+        name: "tyw_community",
+        meta:{
+          title:'社区管理'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/tyw_community/TywCommunity.vue')
+      },
+      {
+        path: "tyw_feedback",
+        name: "tyw_feedback",
+        meta:{
+          title:'用户反馈'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/tyw_feedback/TywFeedback.vue')
+      },
+      {
         path: "system",
         name: "system",
         meta:{

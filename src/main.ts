@@ -18,7 +18,6 @@ if (tokenValue) {
 const app = createApp(App)
 // ? 全局挂载 axios,server
 app.provide('server', server)
-
 // app.config.globalProperties.$axios = axios
 // app.use(AxiosPlugin)
 
