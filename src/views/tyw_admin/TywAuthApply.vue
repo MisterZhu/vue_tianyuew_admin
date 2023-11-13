@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { useAuthApply } from "./useAuthApply"
-const { getAllAuthApply, allAuthApplys, deleteAuthApply } = useAuthApply()
+const { getAllAuthApply, allAuthApplys, authApplyApprove, authApplyReject, deleteAuthApply } = useAuthApply()
 let router = useRouter()
 const dialogVisible = ref(false)
 const selectedImage = ref('')
@@ -16,13 +16,12 @@ const handleDelete = (id: number) => {
     deleteAuthApply(id)
 }
 const handleReject = (id: number) => {
-    deleteAuthApply(id)
+    authApplyReject(id)
 }
 const handleApprove = (id: number) => {
-    deleteAuthApply(id)
-}
-const handleDetial = (id: number) => {
-    router.push({ name: 'course_detail', params: { id: id } })
+    console.log("handleApprove ID:", id);
+
+    authApplyApprove(id)
 }
 
 const showImage = (imageUrl: string) => {
@@ -86,11 +85,16 @@ const handleImagePreview = (url: string) => {
 
             <el-table-column prop="state" label="操作" align="center" v-slot="scope">
                 <template v-if="scope.row.state == 0">
-                    <el-button type="danger" @click="handleReject(scope.row.id)">拒绝</el-button>
-                    <el-button type="primary" @click="handleApprove(scope.row.id)">通过</el-button>
+                    <el-button type="danger" @click="handleReject(scope.row.ID)">拒绝</el-button>
+                    <el-button type="primary" @click="handleApprove(scope.row.ID)">通过</el-button>
                 </template>
                 <template v-else-if="scope.row.state == 1">
-                    <el-button type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+                    <el-button type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
+                </template>
+                <template v-else-if="scope.row.state == 2">
+                    <el-button type="info" :disabled="true">已拒绝</el-button>
+                    <el-button type="primary" @click="handleApprove(scope.row.ID)">通过</el-button>
+
                 </template>
                 <!-- 添加更多状态的判断... -->
             </el-table-column>

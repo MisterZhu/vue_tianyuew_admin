@@ -49,6 +49,11 @@ const handleLogin = (formEl: any): void => {
             /* /api = https://imissu.herokuapp.com/api/ */
             // @ts-ignore
             server.userApi.postUserLogin(props.loginUser).then((res: any) => {
+
+                // ElMessage(msg)
+                // ? 路由跳转
+                if (res.code === 200) {
+
                 console.log(res.data)
                 // ? 登陆成功，存储 token 到 LS 中
                 const { token } = res.data
@@ -56,11 +61,10 @@ const handleLogin = (formEl: any): void => {
                 console.log(msg)
 
                 localStorage.setItem('local_token', token)
-                // ElMessage(msg)
-                // ? 路由跳转
-                if (res.code === 200) {
                     request.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                     getUserInfo()
+                }else{
+                    alert(res.msg);
                 }
 
             })
@@ -89,7 +93,7 @@ const getUserInfo = () => {
         // userInfo.value = res.data
 
         // localStorage.setItem('local_user_info', userInfo)
-        localStorage.setItem('local_user_info',JSON.stringify(res.data));
+        localStorage.setItem('local_user_info', JSON.stringify(res.data));
 
         router.push(route.query.redirect as string || '/')
 

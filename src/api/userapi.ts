@@ -12,14 +12,14 @@ export type CategoryItem = {
     image_urls: string
 }
 export type AuthApplyItem = {
-    id: number
+    ID: number
     state: number
     community: string
     room: string
     user_id: string
     telephone: string
     img_url: string
-    created_at: string
+    CreatedAt: string
 
 }
 
@@ -124,6 +124,22 @@ export class HttpService {
     public geAllAuthApplys = (params = {}) => {
         return Service<Common<AuthApplyItem[]>>({
             url: process.env.VUE_APP_APPLYLIST_GET,
+            method: 'post',
+            data: params
+        })
+    }
+    // 审核操作
+    public checkAuthApplys = (params = {}) => {
+        return Service<Common<AuthApplyItem[]>>({
+            url: process.env.VUE_APP_APPLYLIST_CHECK,
+            method: 'post',
+            data: params
+        })
+    }
+    // 删除审核操作
+    public deleteAuthApplys = (params = {}) => {
+        return Service<Common<AuthApplyItem[]>>({
+            url: process.env.VUE_APP_APPLYLIST_DET,
             method: 'post',
             data: params
         })
