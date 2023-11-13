@@ -20,9 +20,17 @@ export type AuthApplyItem = {
     telephone: string
     img_url: string
     CreatedAt: string
-
 }
-
+export type CommunityItem = {
+    ID: number
+    state: number
+    name: string
+    detail_name: string
+    address: string
+    img_url: string
+    latitude: number
+    longitude: number
+}
 export type ArticleItem = {
     id: number
     title: string
@@ -39,6 +47,8 @@ export type ArticleItem = {
 //     })
 // }
 export class HttpService {
+
+    // ------------------------------分类和文章API
 
     // 删除文章
     public postDetArticle(params = {}) {
@@ -120,6 +130,8 @@ export class HttpService {
             data: params
         })
     }
+
+    // ------------------------------业主认证API
     // 获取所有申请
     public geAllAuthApplys = (params = {}) => {
         return Service<Common<AuthApplyItem[]>>({
@@ -144,7 +156,42 @@ export class HttpService {
             data: params
         })
     }
-    //import.meta.env.VUE_APP_BASE_API
+    // ------------------------------社区API
+    // 新增Community
+    public addCommunity = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_ADD,
+            method: 'post',
+            data: params
+        })
+    }
+    // 获取所有Community
+    public geAllCommunity = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_GET,
+            method: 'post',
+            data: params
+        })
+    }
+    // Community操作
+    public checkCommunity = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_CHECK,
+            method: 'post',
+            data: params
+        })
+    }
+    // 删除Community
+    public deleteCommunity = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_DET,
+            method: 'post',
+            data: params
+        })
+    }
+
+    // ------------------------------用户模块API
+
     // 用户登录
     public postUserLogin(params = {}) {
 

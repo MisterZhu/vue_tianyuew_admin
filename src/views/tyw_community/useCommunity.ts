@@ -1,102 +1,100 @@
 import { ElMessageBox } from "element-plus"
-import type { CategoryItem, ArticleItem } from "@/api/userapi";
+import type { CommunityItem } from "@/api/userapi";
 
 
 export function useCommunity() {
 
     const server = inject('server')
 
-    const allCates = ref([] as CategoryItem[])
-    const allArticle = ref([] as ArticleItem[])
+    const allCommunitys = ref([] as CommunityItem[])
 
-    const cateItem = ref<CategoryItem>();
-    const articleItem = ref<ArticleItem>();
+    const CommunityItem = ref<CommunityItem>();
 
-    var cateid = ""
-    //获取分类下的所有文章
-    const getCateAllArticles = async (id: string) => {
-        cateid = id
+    var Communityid = ""
+    //获取所有申请
+    const getAllCommunity = async () => {
         // @ts-ignore
-        const res = await server.userApi.getCateArticles({ "id": id })
+        const res = await server.userApi.geAllCommunitys()
         if (res.code === 200) {
-            allArticle.value = res.data
+            allCommunitys.value = res.data
+            // for (const Community of allCommunitys.value) {
+            //     console.log("Auth Apply Item Details:");
+            //     console.log("ID:", Community.ID);
+            //     console.log("State:", Community.state);
+            //     console.log("Community:", Community.community);
+            //     console.log("Room:", Community.room);
+            //     console.log("User ID:", Community.user_id);
+            //     console.log("Telephone:", Community.telephone);
+            //     console.log("Image URL:", Community.img_url);
+            //     console.log("Created At:", Community.CreatedAt);
+            //     console.log("--------------------------");
+            // }
+
         } else {
-            ElMessage.error('获取视频列表失败')
+            ElMessage.error('获取申请列表失败')
+            throw new Error(res.msg || '网络异常')
+        }
+    }
+    //审核通过
+    const CommunityApprove = async (id: number) => {
+        const formData = {
+            id: id,
+            state: 1
+        }
+        console.log("-------------ID:", id);
+
+        // @ts-ignore
+        const res = await server.userApi.checkCommunitys(formData)
+        if (res.code === 200) {
+            ElMessage.success("审核成功")
+            getAllCommunity()
+        } else {
+            ElMessage.error('审核失败')
             throw new Error(res.msg || '网络异常')
         }
         // console.log(res)
     }
-    //获取分类详情
-    const getCateDetail = async (id: string) => {
+    //审核拒绝
+    const CommunityReject = async (id: number) => {
+        const formData = {
+            'id': id,
+            'state': 2
+        }
         // @ts-ignore
-        const res = await server.userApi.getCategoryDetail({ "id": id })
+        const res = await server.userApi.checkCommunitys(formData)
         if (res.code === 200) {
-            cateItem.value = res.data
+            ElMessage.success("操作成功")
+            getAllCommunity()
         } else {
-            ElMessage.error(res.msg)
+            ElMessage.error('操作失败')
             throw new Error(res.msg || '网络异常')
         }
         // console.log(res)
     }
-    //获取所有分类
-    const getAllCate = async () => {
-        // @ts-ignore
-        const res = await server.userApi.geAllCategorys()
-        if (res.code === 200) {
-            allCates.value = res.data
-        } else {
-            ElMessage.error('获取主播列表失败')
-            throw new Error(res.msg || '网络异常')
-        }
-        // console.log(res)
-    }
+    //删除
+    const deleteCommunity = async (id: number) => {
 
-    //删除分类事件处理
-    const deleteCate = async (id: number) => {
+        // // 1.弹框询问
+        // await ElMessageBox.confirm("确定要删除该视频吗？", "删除提醒", {
+        //     confirmButtonText: "确认",
+        //     cancelButtonText: "取消",
+        //     type: 'warning'
+        // }).catch(() => {
+        //     ElMessage.info("删除操作取消")
+        //     return new Promise(() => { })
+        // })
 
-        // 1.弹框询问
-        await ElMessageBox.confirm("确定要删除该课程吗？", "删除提醒", {
-            confirmButtonText: "确认",
-            cancelButtonText: "取消",
-            type: 'warning'
-        }).catch(() => {
-            ElMessage.info("删除操作取消")
-            return new Promise(() => { })
-        })
         // 2.执行删除
         // @ts-ignore
-        const res = await server.userApi.postDetCategory({ "id": id })
+        const res = await server.userApi.deleteCommunitys({ "id": id })
         if (res.code === 200) {
             ElMessage.success("删除成功")
-            getAllCate()
+            getAllCommunity()
         } else {
             ElMessage.error('删除失败')
             throw new Error(res.msg || '网络异常')
         }
     }
-    //删除文章事件处理
-    const deleteArticle = async (id: number) => {
 
-        // 1.弹框询问
-        await ElMessageBox.confirm("确定要删除该视频吗？", "删除提醒", {
-            confirmButtonText: "确认",
-            cancelButtonText: "取消",
-            type: 'warning'
-        }).catch(() => {
-            ElMessage.info("删除操作取消")
-            return new Promise(() => { })
-        })
-        // 2.执行删除
-        // @ts-ignore
-        const res = await server.userApi.postDetArticle({ "id": id })
-        if (res.code === 200) {
-            ElMessage.success("删除成功")
-            getCateAllArticles(cateid)
-        } else {
-            ElMessage.error('删除失败')
-            throw new Error(res.msg || '网络异常')
-        }
-    }
-
-    return { getAllCate, allCates, deleteCate, getCateDetail, cateItem, getCateAllArticles, allArticle, deleteArticle }
+    return { getAllCommunity, allCommunitys, CommunityApprove, CommunityReject, CommunityItem, deleteCommunity }
 }

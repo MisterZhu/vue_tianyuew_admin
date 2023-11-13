@@ -7,10 +7,8 @@ export function useAuthApply() {
     const server = inject('server')
 
     const allAuthApplys = ref([] as AuthApplyItem[])
-    const allArticle = ref([] as ArticleItem[])
 
     const AuthApplyItem = ref<AuthApplyItem>();
-    const articleItem = ref<ArticleItem>();
 
     var AuthApplyid = ""
     //获取所有申请
