@@ -166,7 +166,7 @@ export class HttpService {
         })
     }
     // 获取所有Community
-    public geAllCommunity = (params = {}) => {
+    public geAllCommunitys = (params = {}) => {
         return Service<Common<CommunityItem[]>>({
             url: process.env.VUE_APP_COMMUNITY_GET,
             method: 'post',
