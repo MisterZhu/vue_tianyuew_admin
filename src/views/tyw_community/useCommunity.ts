@@ -72,13 +72,13 @@ export function useCommunity() {
         // console.log(res)
     }
     //删除
-    const deleteCommunity = async (id: number) => {
+    const deleteCommunitys = async (id: number) => {
 
         // // 1.弹框询问
         // await ElMessageBox.confirm("确定要删除该视频吗？", "删除提醒", {
         //     confirmButtonText: "确认",
         //     cancelButtonText: "取消",
-        //     type: 'warning'
+        //     type: 'warning'  
         // }).catch(() => {
         //     ElMessage.info("删除操作取消")
         //     return new Promise(() => { })
@@ -96,5 +96,5 @@ export function useCommunity() {
         }
     }
 
-    return { getAllCommunity, allCommunitys, CommunityApprove, CommunityReject, CommunityItem, deleteCommunity }
+    return { getAllCommunity, allCommunitys, CommunityApprove, CommunityReject, CommunityItem, deleteCommunitys }
 }

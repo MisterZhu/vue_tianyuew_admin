@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { useCommunity } from "./useCommunity"
-const { getAllCommunity, allCommunitys, CommunityApprove, CommunityReject, deleteCommunity } = useCommunity()
+const { getAllCommunity, allCommunitys, CommunityApprove, CommunityReject, deleteCommunitys } = useCommunity()
 let router = useRouter()
 const dialogVisible = ref(false)
 const selectedImage = ref('')
@@ -10,10 +10,10 @@ getAllCommunity()
 
 const handleAdd = () => {
     // ? 跳转路由
-    router.push({ name: "course_create" })
+    router.push({ name: "tyw_community_create" })
 }
 const handleDelete = (id: number) => {
-    deleteCommunity(id)
+    deleteCommunitys(id)
 }
 const handleReject = (id: number) => {
     CommunityReject(id)
@@ -66,35 +66,20 @@ const handleImagePreview = (url: string) => {
 
 <template>
     <el-card class="box-card">
-        <!-- <template #header>
+        <template #header>
             <div class="card-header">
-                <el-button @click="handleAdd" type="primary" plain>添加主播</el-button>
+                <el-button @click="handleAdd" type="primary" plain>添加社区</el-button>
             </div>
-        </template> -->
+        </template>
         <el-table :data="allCommunitys" border style="width: 100%">
-            <el-table-column prop="user_id" label="user_id" align="center" />
-            <el-table-column prop="telephone" label="手机号" align="center" />
-            <el-table-column prop="community" label="小区" align="center" />
-            <el-table-column prop="room" label="房号" align="center" />
-            <el-table-column label="证明" width="100">
-                <template #default="scope">
-                    <el-image :src="scope.row.img_url" fit="cover" style="width: 50px; height: 50px; cursor: pointer;"
-                        @click="showImage(scope.row.img_url)"></el-image>
-                </template>
-            </el-table-column>
+            <el-table-column prop="name" label="小区" align="center" />
+            <el-table-column prop="detail_name" label="小区全称" align="center" />
+            <el-table-column prop="address" label="小区地址" align="center" />
 
             <el-table-column prop="state" label="操作" align="center" v-slot="scope">
                 <template v-if="scope.row.state == 0">
-                    <el-button type="danger" @click="handleReject(scope.row.ID)">拒绝</el-button>
-                    <el-button type="primary" @click="handleApprove(scope.row.ID)">通过</el-button>
-                </template>
-                <template v-else-if="scope.row.state == 1">
                     <el-button type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
-                </template>
-                <template v-else-if="scope.row.state == 2">
-                    <el-button type="info" :disabled="true">已拒绝</el-button>
-                    <el-button type="primary" @click="handleApprove(scope.row.ID)">通过</el-button>
-
+                    <!-- <el-button type="primary" @click="handleApprove(scope.row.ID)">修改</el-button> -->
                 </template>
                 <!-- 添加更多状态的判断... -->
             </el-table-column>

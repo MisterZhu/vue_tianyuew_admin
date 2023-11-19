@@ -38,15 +38,15 @@ import { isCollapse } from "./isCollapse";
                     <el-icon><IEpAlarmClock /></el-icon>
                     <span>认证申请</span>
                 </el-menu-item>
+                <el-menu-item  index="/tyw_community">
+                    <el-icon><IEpOfficeBuilding /></el-icon>
+                    <span>小区管理</span>
+                </el-menu-item>
                 <el-menu-item  index="/tyw_users">
                     <el-icon>
                         <IEpUser />
                     </el-icon>
                     <span>用户管理</span>
-                </el-menu-item>
-                <el-menu-item  index="/tyw_community">
-                    <el-icon><IEpOfficeBuilding /></el-icon>
-                    <span>社区管理</span>
                 </el-menu-item>
                 <el-menu-item  index="/tyw_feedback">
                     <el-icon><IEpHelp /></el-icon>

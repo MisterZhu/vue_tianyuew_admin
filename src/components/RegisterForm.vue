@@ -1,8 +1,8 @@
 <template>
   <el-form ref="registerForm" :model="registerUser" :rules="registerRules" label-width="100px"
     class="registerForm sign-up-form">
-    <el-form-item label="用户名" prop="name">
-      <el-input v-model="registerUser.name" placeholder="请填写用户名..."></el-input>
+    <el-form-item label="用户名" prop="username">
+      <el-input v-model="registerUser.username" placeholder="请填写用户名..."></el-input>
     </el-form-item>
     <el-form-item label="手机号" prop="telephone">
       <el-input v-model="registerUser.telephone" placeholder="输入手机号..."></el-input>

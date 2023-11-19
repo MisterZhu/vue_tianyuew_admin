@@ -7,8 +7,9 @@ const server = inject('server')
 let router = useRouter()
 
 const form = reactive({
-  name: '',
-  content: '',
+    name: '',
+  detail_name: '',
+  address: '',
   imageUrls: [] as any[],
 });
 const QiniuData = {    //这里是直接绑定data的值
@@ -101,18 +102,18 @@ getUpToken()
 //提交新增分类
 const addCategory = async () => {
   const formData = {
-    name: form.name,
-    content: form.content,
-    imageUrls: form.imageUrls.join(',')
+    'name': form.name,
+    'detail_name': form.detail_name,
+    'address': form.address
   }
 
   // @ts-ignore
-  const res = await server.userApi.postAddCategory(formData)
+  const res = await server.userApi.addCommunity(formData)
   console.log('上传的form表单 = ', form)
 
   if (res.code === 200) {
     ElMessage.success('添加成功')
-    router.push('/course')
+    router.push('/tyw_community')
   } else {
     ElMessage.error('操作失败')
     throw new Error('操作失败')
@@ -124,7 +125,7 @@ const submitForm = async (formEl: any) => {
   if (!form.name) {
     // alert('请输入标题')
     // return
-    await ElMessageBox.alert('请输入标题', '提示', {
+    await ElMessageBox.alert('请输入小区简称', '提示', {
       // if you want to disable its autofocus
       autofocus: false,
       confirmButtonText: '确定',
@@ -133,10 +134,10 @@ const submitForm = async (formEl: any) => {
       },
     })
   }
-  if (!form.content) {
+  if (!form.detail_name) {
     // alert('请输入简介')
     // return
-    await ElMessageBox.alert('请输入简介', '提示', {
+    await ElMessageBox.alert('请输入小区全称', '提示', {
       // if you want to disable its autofocus
       autofocus: false,
       confirmButtonText: '确定',
@@ -145,10 +146,10 @@ const submitForm = async (formEl: any) => {
       },
     })
   }
-  if (form.imageUrls.length === 0) {
-    // alert('请添加图片')
+  if (!form.address) {
+    // alert('请输入简介')
     // return
-    await ElMessageBox.alert('请添加图片', '提示', {
+    await ElMessageBox.alert('请输入小区地址', '提示', {
       // if you want to disable its autofocus
       autofocus: false,
       confirmButtonText: '确定',
@@ -157,26 +158,43 @@ const submitForm = async (formEl: any) => {
       },
     })
   }
+  // if (form.imageUrls.length === 0) {
+  //   // alert('请添加图片')
+  //   // return
+  //   await ElMessageBox.alert('请添加图片', '提示', {
+  //     // if you want to disable its autofocus
+  //     autofocus: false,
+  //     confirmButtonText: '确定',
+  //     callback: (action: Action) => {
+  //       return
+  //     },
+  //   })
+  // }
 
   addCategory()
 }
 // 重置
 const resetForm = async () => {
   form.name = ''
-  form.content = ''
+  form.detail_name = ''
 }
 </script>
 
 <template>
   <el-form :model="form" ref="inputForm">
-    <el-form-item label="标题">
-      <el-input v-model="form.name" placeholder="请输入标题"></el-input>
+    <el-form-item label="小区简称">
+      <el-input v-model="form.name" placeholder="请输入小区简称"></el-input>
     </el-form-item>
-    <el-form-item label="介绍">
-      <el-input v-model="form.content" placeholder="请输入介绍" :autosize="{ minRows: 2, maxRows: 8 }"
+    <el-form-item label="小区全称">
+      <el-input v-model="form.detail_name" placeholder="请输入小区全称" :autosize="{ minRows: 2, maxRows: 8 }"
         type="textarea"></el-input>
     </el-form-item>
-    <el-form-item label="图片">
+    <el-form-item label="地址">
+      <el-input v-model="form.address" placeholder="请输入小区地址" :autosize="{ minRows: 2, maxRows: 8 }"
+        type="textarea"></el-input>
+    </el-form-item>
+   
+    <!-- <el-form-item label="图片">
       <el-upload class="upload-demo" action="https://upload.qiniup.com" :data="QiniuData" :file-list="form.imageUrls"
         accept="image/jpeg, image/jpg, image/png" list-type="picture-card" :before-upload="beforeUpload"
         :on-preview="handlePictureCardPreview" :on-success="uploadSuccess" :on-error="uploadError"
@@ -189,7 +207,7 @@ const resetForm = async () => {
       <el-dialog v-model="dialogVisible">
         <img w-full :src="dialogImageUrl" alt="Preview Image" />
       </el-dialog>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item>
       <div class="container">
         <el-button style="width: 200px;" type="primary" @click="submitForm(inputForm)" size="large">提交</el-button>

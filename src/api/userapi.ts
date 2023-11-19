@@ -38,7 +38,17 @@ export type ArticleItem = {
     img: string
     isActive: boolean
 }
+export type TywUsergoryItem = {
+    id: number
+    username: string
+    avater: string
+    telephone: string
+    state: number
+    default_community: string
+    default_room: string
+    password: string
 
+}
 // export const geAllCategorys = (params = {}) => {
 //     return Service<Common<CategoryItem[]>>({
 //         url:'/category/getn',
@@ -182,14 +192,39 @@ export class HttpService {
         })
     }
     // 删除Community
-    public deleteCommunity = (params = {}) => {
+    public deleteCommunitys = (params = {}) => {
         return Service<Common<CommunityItem[]>>({
             url: process.env.VUE_APP_COMMUNITY_DET,
             method: 'post',
             data: params
         })
     }
-
+// ------------------------------天悦湾小程序用户管理API
+   
+    // 获取所有小程序用户
+    public getTywUsergoryDetail = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_ARTICLE_ARTLIST,
+            method: 'post',
+            data: params
+        })
+    }
+    // 小程序用户操作
+    public geAllTywUser = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_ARTICLE_ARTLIST,
+            method: 'post',
+            data: params
+        })
+    }
+    // 删除小程序用户
+    public deleteTywUser = (params = {}) => {
+        return Service<Common<CommunityItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_DET,
+            method: 'post',
+            data: params
+        })
+    }
     // ------------------------------用户模块API
 
     // 用户登录
@@ -225,4 +260,7 @@ export class HttpService {
             data: params
         })
     }
+    
+    
+    
 }

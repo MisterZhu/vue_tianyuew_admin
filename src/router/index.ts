@@ -89,6 +89,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/tyw_community/TywCommunity.vue')
       },
       {
+        path: "tyw_community/create",
+        name: "tyw_community_create",
+        meta:{
+          title:'创建社区'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/tyw_community/TywAddCommunity.vue')
+      },
+      {
         path: "tyw_feedback",
         name: "tyw_feedback",
         meta:{

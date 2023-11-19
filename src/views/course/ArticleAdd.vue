@@ -168,8 +168,10 @@ const deleteQiNiuFile = async (key: string) => {
 }
 //提交新增文章
 const addArticle = async () => {
+    const cid = route.params.id
+    const categoryId = Array.isArray(cid) ? cid[0] : cid;
     const formData = {
-        cid: route.params.id,
+        cid: categoryId,
         title: form.title,
         img: form.img,
     }

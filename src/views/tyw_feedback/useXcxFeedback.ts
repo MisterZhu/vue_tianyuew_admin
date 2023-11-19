@@ -17,7 +17,7 @@ export function useXcxFeedback() {
     const getCateAllArticles = async (id: string) => {
         cateid = id
         // @ts-ignore
-        const res = await server.userApi.getCateArticles({ "id": id })
+        const res = await server.userApi.getCateArticles({ "id": parseInt(id, 10) })
         if (res.code === 200) {
             allArticle.value = res.data
         } else {
@@ -29,7 +29,7 @@ export function useXcxFeedback() {
     //获取分类详情
     const getCateDetail = async (id: string) => {
         // @ts-ignore
-        const res = await server.userApi.getCategoryDetail({ "id": id })
+        const res = await server.userApi.getCategoryDetail({ "id": parseInt(id, 10) })
         if (res.code === 200) {
             cateItem.value = res.data
         } else {

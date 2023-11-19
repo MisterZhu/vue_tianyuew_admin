@@ -37,9 +37,9 @@ const Service = axios.create({
   baseURL: '/api/v1',
   headers: {
     // FormData格式请求头
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     // json格式请求头
-    // "Content-Type": "application/json"
+    "Content-Type": "application/json"
 
   },
   timeout: 10000
