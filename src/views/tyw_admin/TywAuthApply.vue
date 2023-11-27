@@ -84,14 +84,14 @@ const handleImagePreview = (url: string) => {
             </el-table-column>
 
             <el-table-column prop="state" label="操作" align="center" v-slot="scope">
-                <template v-if="scope.row.state == 0">
+                <template v-if="scope.row.state == 1">
                     <el-button type="danger" @click="handleReject(scope.row.ID)">拒绝</el-button>
                     <el-button type="primary" @click="handleApprove(scope.row.ID)">通过</el-button>
                 </template>
-                <template v-else-if="scope.row.state == 1">
+                <template v-else-if="scope.row.state == 2">
                     <el-button type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
                 </template>
-                <template v-else-if="scope.row.state == 2">
+                <template v-else-if="scope.row.state == 3">
                     <el-button type="info" :disabled="true">已拒绝</el-button>
                     <el-button type="primary" @click="handleApprove(scope.row.ID)">通过</el-button>
 

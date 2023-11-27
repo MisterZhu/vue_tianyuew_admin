@@ -39,7 +39,7 @@ export function useAuthApply() {
     const authApplyApprove = async (id: number) => {
         const formData = {
             id: id,
-            state: 1
+            state: 2
         }
         console.log("-------------ID:", id);
 
@@ -58,7 +58,7 @@ export function useAuthApply() {
     const authApplyReject = async (id: number) => {
         const formData = {
             'id': id,
-            'state': 2
+            'state': 3
         }
         // @ts-ignore
         const res = await server.userApi.checkAuthApplys(formData)
