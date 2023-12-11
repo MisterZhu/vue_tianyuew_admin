@@ -201,18 +201,18 @@ export class HttpService {
     }
 // ------------------------------天悦湾小程序用户管理API
    
+    // 获取小程序用户详情
+    // public getTywUsergoryDetail = (params = {}) => {
+    //     return Service<Common<CommunityItem[]>>({
+    //         url: process.env.VUE_APP_TYWUSER_GET,
+    //         method: 'post',
+    //         data: params
+    //     })
+    // }
     // 获取所有小程序用户
-    public getTywUsergoryDetail = (params = {}) => {
-        return Service<Common<CommunityItem[]>>({
-            url: process.env.VUE_APP_ARTICLE_ARTLIST,
-            method: 'post',
-            data: params
-        })
-    }
-    // 小程序用户操作
     public geAllTywUser = (params = {}) => {
         return Service<Common<CommunityItem[]>>({
-            url: process.env.VUE_APP_ARTICLE_ARTLIST,
+            url: process.env.VUE_APP_TYWUSER_GET,
             method: 'post',
             data: params
         })
@@ -220,7 +220,7 @@ export class HttpService {
     // 删除小程序用户
     public deleteTywUser = (params = {}) => {
         return Service<Common<CommunityItem[]>>({
-            url: process.env.VUE_APP_COMMUNITY_DET,
+            url: process.env.VUE_APP_TYWUSER_DET,
             method: 'post',
             data: params
         })

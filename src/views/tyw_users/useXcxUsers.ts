@@ -15,17 +15,17 @@ export function useXcxUsers() {
     var TywUserid = ""
    
     //获取天悦湾用户详情
-    const getTywUserDetail = async (id: string) => {
-        // @ts-ignore
-        const res = await server.userApi.getTywUsergoryDetail({ "id": parseInt(id, 10) })
-        if (res.code === 200) {
-            TywUserItem.value = res.data
-        } else {
-            ElMessage.error(res.msg)
-            throw new Error(res.msg || '网络异常')
-        }
-        // console.log(res)
-    }
+    // const getTywUserDetail = async (id: string) => {
+    //     // @ts-ignore
+    //     const res = await server.userApi.getTywUsergoryDetail({ "id": parseInt(id, 10) })
+    //     if (res.code === 200) {
+    //         TywUserItem.value = res.data
+    //     } else {
+    //         ElMessage.error(res.msg)
+    //         throw new Error(res.msg || '网络异常')
+    //     }
+    //     // console.log(res)
+    // }
     //获取所有天悦湾用户
     const getAllTywUser = async () => {
         // @ts-ignore
@@ -53,7 +53,7 @@ export function useXcxUsers() {
         })
         // 2.执行删除
         // @ts-ignore
-        const res = await server.userApi.postDetTywUser({ "id": id })
+        const res = await server.userApi.deleteTywUser({ "id": id })
         if (res.code === 200) {
             ElMessage.success("删除成功")
             getAllTywUser()
@@ -64,5 +64,5 @@ export function useXcxUsers() {
     }
     
 
-    return { getAllTywUser, allTywUsers, deleteTywUser, getTywUserDetail, TywUserItem, allArticle }
+    return { getAllTywUser, allTywUsers, deleteTywUser, TywUserItem, allArticle }
 }
