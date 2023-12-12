@@ -11,10 +11,12 @@ export function useCommunity() {
     const CommunityItem = ref<CommunityItem>();
 
     var Communityid = ""
+    const size = 100
+    let page = 0
     //获取所有申请
     const getAllCommunity = async () => {
         // @ts-ignore
-        const res = await server.userApi.geAllCommunitys()
+        const res = await server.userApi.geAllCommunitys({ "page": page, "size": size })
         if (res.code === 200) {
             allCommunitys.value = res.data
             // for (const Community of allCommunitys.value) {

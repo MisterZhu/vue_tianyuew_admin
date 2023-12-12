@@ -112,6 +112,22 @@ const routes = [
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/system/SystemIndex.vue')
       },
+      {
+        path: "sys_dictionary",
+        name: "sys_dictionary",
+        meta:{
+          title:'审核字典'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/system/sys_dictionary/DictionaryIndex.vue')
+      },
+      {
+        path: "sys_dictionary/create",
+        name: "sys_dictionary_create",
+        meta:{
+          title:'新增审核'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/system/sys_dictionary/AddDictionary.vue')
+      },
     ],
   },
   {

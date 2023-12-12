@@ -38,6 +38,7 @@ declare module 'vue' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     IEpAlarmClock: typeof import('~icons/ep/alarm-clock')['default']
     IEpArrowDown: typeof import('~icons/ep/arrow-down')['default']
+    IEpClock: typeof import('~icons/ep/clock')['default']
     IEpClose: typeof import('~icons/ep/close')['default']
     IEpExpand: typeof import('~icons/ep/expand')['default']
     IEpFold: typeof import('~icons/ep/fold')['default']
