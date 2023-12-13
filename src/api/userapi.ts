@@ -49,6 +49,13 @@ export type TywUsergoryItem = {
     password: string
 
 }
+export type ConfigItem = {
+    CreatedAt: string
+    ID: number
+    state: string
+    name: string
+    title: string
+}
 // export const geAllCategorys = (params = {}) => {
 //     return Service<Common<CategoryItem[]>>({
 //         url:'/category/getn',
@@ -199,6 +206,41 @@ export class HttpService {
             data: params
         })
     }
+
+    // ------------------------------字典配置API
+    // 新增字典配置
+    public addConfig = (params = {}) => {
+        return Service<Common<ConfigItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_ADD,
+            method: 'post',
+            data: params
+        })
+    }
+    // 获取所有字典配置
+    public geAllConfig = (params = {}) => {
+        return Service<Common<ConfigItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_GET,
+            method: 'post',
+            data: params
+        })
+    }
+    // 字典配置操作
+    public checkConfig = (params = {}) => {
+        return Service<Common<ConfigItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_CHECK,
+            method: 'post',
+            data: params
+        })
+    }
+    // 删除字典配置
+    public deleteConfig = (params = {}) => {
+        return Service<Common<ConfigItem[]>>({
+            url: process.env.VUE_APP_COMMUNITY_DET,
+            method: 'post',
+            data: params
+        })
+    }
+
 // ------------------------------天悦湾小程序用户管理API
    
     // 获取小程序用户详情
