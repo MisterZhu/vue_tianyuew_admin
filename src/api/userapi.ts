@@ -211,7 +211,7 @@ export class HttpService {
     // 新增字典配置
     public addConfig = (params = {}) => {
         return Service<Common<ConfigItem[]>>({
-            url: process.env.VUE_APP_COMMUNITY_ADD,
+            url: process.env.VUE_APP_CONFIG_ADD,
             method: 'post',
             data: params
         })
@@ -219,7 +219,7 @@ export class HttpService {
     // 获取所有字典配置
     public geAllConfig = (params = {}) => {
         return Service<Common<ConfigItem[]>>({
-            url: process.env.VUE_APP_COMMUNITY_GET,
+            url: process.env.VUE_APP_CONFIG_GET,
             method: 'post',
             data: params
         })
@@ -227,7 +227,7 @@ export class HttpService {
     // 字典配置操作
     public checkConfig = (params = {}) => {
         return Service<Common<ConfigItem[]>>({
-            url: process.env.VUE_APP_COMMUNITY_CHECK,
+            url: process.env.VUE_APP_CONFIG_CHECK,
             method: 'post',
             data: params
         })
@@ -235,7 +235,7 @@ export class HttpService {
     // 删除字典配置
     public deleteConfig = (params = {}) => {
         return Service<Common<ConfigItem[]>>({
-            url: process.env.VUE_APP_COMMUNITY_DET,
+            url: process.env.VUE_APP_CONFIG_DET,
             method: 'post',
             data: params
         })

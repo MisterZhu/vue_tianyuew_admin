@@ -16,7 +16,7 @@ export function useConfig() {
     //获取所有
     const getAllConfig = async () => {
         // @ts-ignore
-        const res = await server.userApi.geAllConfigs({ "page": page, "size": size })
+        const res = await server.userApi.geAllConfig({ "page": page, "size": size })
         if (res.code === 200) {
             allConfigs.value = res.data
 
@@ -26,15 +26,16 @@ export function useConfig() {
         }
     }
     //修改配置数据
-    const ConfigApprove = async (id: number) => {
+    const ConfigApprove = async (id: number, state: string) => {
+
         const formData = {
             id: id,
-            state: 1
+            state: state
         }
         console.log("-------------ID:", id);
 
         // @ts-ignore
-        const res = await server.userApi.checkConfigs(formData)
+        const res = await server.userApi.checkConfig(formData)
         if (res.code === 200) {
             ElMessage.success("审核成功")
             getAllConfig()
@@ -60,7 +61,7 @@ export function useConfig() {
 
         // 2.执行删除
         // @ts-ignore
-        const res = await server.userApi.deleteConfigs({ "id": id })
+        const res = await server.userApi.deleteConfig({ "id": id })
         if (res.code === 200) {
             ElMessage.success("删除成功")
             getAllConfig()

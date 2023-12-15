@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { Action, ElMessageBox, UploadProps, UploadUserFile } from 'element-plus'
-import qs from 'qs';
 
 const server = inject('server')
 let router = useRouter()
 
 const form = reactive({
-    name: '',
+  name: '',
   detail_name: '',
   address: '',
   imageUrls: [] as any[],
@@ -103,17 +102,16 @@ getUpToken()
 const addCategory = async () => {
   const formData = {
     'name': form.name,
-    'detail_name': form.detail_name,
-    'address': form.address
+    'state': form.detail_name,
   }
 
   // @ts-ignore
-  const res = await server.userApi.addCommunity(formData)
+  const res = await server.userApi.addConfig(formData)
   console.log('上传的form表单 = ', form)
 
   if (res.code === 200) {
     ElMessage.success('添加成功')
-    router.push('/tyw_community')
+    router.push('/sys_dictionary')
   } else {
     ElMessage.error('操作失败')
     throw new Error('操作失败')
@@ -125,7 +123,7 @@ const submitForm = async (formEl: any) => {
   if (!form.name) {
     // alert('请输入标题')
     // return
-    await ElMessageBox.alert('请输入小区简称', '提示', {
+    await ElMessageBox.alert('请输入版本号', '提示', {
       // if you want to disable its autofocus
       autofocus: false,
       confirmButtonText: '确定',
@@ -137,7 +135,7 @@ const submitForm = async (formEl: any) => {
   if (!form.detail_name) {
     // alert('请输入简介')
     // return
-    await ElMessageBox.alert('请输入小区全称', '提示', {
+    await ElMessageBox.alert('请输入true/false', '提示', {
       // if you want to disable its autofocus
       autofocus: false,
       confirmButtonText: '确定',
@@ -146,31 +144,6 @@ const submitForm = async (formEl: any) => {
       },
     })
   }
-  if (!form.address) {
-    // alert('请输入简介')
-    // return
-    await ElMessageBox.alert('请输入小区地址', '提示', {
-      // if you want to disable its autofocus
-      autofocus: false,
-      confirmButtonText: '确定',
-      callback: (action: Action) => {
-        return
-      },
-    })
-  }
-  // if (form.imageUrls.length === 0) {
-  //   // alert('请添加图片')
-  //   // return
-  //   await ElMessageBox.alert('请添加图片', '提示', {
-  //     // if you want to disable its autofocus
-  //     autofocus: false,
-  //     confirmButtonText: '确定',
-  //     callback: (action: Action) => {
-  //       return
-  //     },
-  //   })
-  // }
-
   addCategory()
 }
 // 重置
@@ -183,17 +156,13 @@ const resetForm = async () => {
 <template>
   <el-form :model="form" ref="inputForm">
     <el-form-item label="小区简称">
-      <el-input v-model="form.name" placeholder="请输入小区简称"></el-input>
+      <el-input v-model="form.name" placeholder="请输入版本号"></el-input>
     </el-form-item>
     <el-form-item label="小区全称">
-      <el-input v-model="form.detail_name" placeholder="请输入小区全称" :autosize="{ minRows: 2, maxRows: 8 }"
+      <el-input v-model="form.detail_name" placeholder="请输入审核状态" :autosize="{ minRows: 2, maxRows: 8 }"
         type="textarea"></el-input>
     </el-form-item>
-    <el-form-item label="地址">
-      <el-input v-model="form.address" placeholder="请输入小区地址" :autosize="{ minRows: 2, maxRows: 8 }"
-        type="textarea"></el-input>
-    </el-form-item>
-   
+
     <!-- <el-form-item label="图片">
       <el-upload class="upload-demo" action="https://upload.qiniup.com" :data="QiniuData" :file-list="form.imageUrls"
         accept="image/jpeg, image/jpg, image/png" list-type="picture-card" :before-upload="beforeUpload"
