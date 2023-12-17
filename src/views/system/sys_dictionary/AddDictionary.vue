@@ -155,11 +155,11 @@ const resetForm = async () => {
 
 <template>
   <el-form :model="form" ref="inputForm">
-    <el-form-item label="小区简称">
+    <el-form-item label="版本号">
       <el-input v-model="form.name" placeholder="请输入版本号"></el-input>
     </el-form-item>
-    <el-form-item label="小区全称">
-      <el-input v-model="form.detail_name" placeholder="请输入审核状态" :autosize="{ minRows: 2, maxRows: 8 }"
+    <el-form-item label="状态值">
+      <el-input v-model="form.detail_name" placeholder="请输入true或false" :autosize="{ minRows: 2, maxRows: 8 }"
         type="textarea"></el-input>
     </el-form-item>
 

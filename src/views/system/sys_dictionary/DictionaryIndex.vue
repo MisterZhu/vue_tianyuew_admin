@@ -5,11 +5,6 @@ import { ConfigItem } from "@/api/userapi";
 let router = useRouter()
 const { getAllConfig, allConfigs, ConfigApprove, deleteConfigs } = useConfig()
 
-const item = {
-    date: '2016-05-02',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1518 弄'
-};
 // const tableData = Array(20).fill(item);
 
 getAllConfig();
@@ -19,17 +14,23 @@ const handleDelete = (id: number) => {
 }
 const handleReject = (model: ConfigItem) => {
     let state = '';
-    if ( model.state == "true"){
+    if (model.state == "true") {
         state = "false";
-    }else{
+    } else {
         state = "true";
     }
     ConfigApprove(model.ID, state)
 }
 const handleAdd = () => {
     // ? 跳转路由
-    router.push({name: "sys_dictionary_create"})
+    router.push({ name: "sys_dictionary_create" })
 }
+const formatDate = (dateString: string) => {
+    const parts = dateString.split(".");
+    const processedPart = parts[0];
+    // 把“T”替换成空格
+    return processedPart.replace("T", " ");
+};
 </script>
 
 <template>
@@ -40,11 +41,13 @@ const handleAdd = () => {
             </div>
         </template>
         <el-table :data="allConfigs">
-            <el-table-column prop="CreatedAt" label="日期" width="200">
+            <el-table-column prop="CreatedAt" label="日期" width="200" v-slot="scope">
+                <!-- 使用 formatDate 方法格式化日期 -->
+                {{ formatDate(scope.row.CreatedAt) }}
             </el-table-column>
             <el-table-column prop="name" label="版本" width="200">
             </el-table-column>
-            <el-table-column prop="state" label="状态"  width="300">
+            <el-table-column prop="state" label="状态" width="300">
             </el-table-column>
             <el-table-column label="操作" align="center" v-slot="scope" width="300">
                 <el-button type="primary" @click="handleReject(scope.row)">修改</el-button>
@@ -56,7 +59,6 @@ const handleAdd = () => {
 </template>
 
 <style scoped>
-
 .el-header {
     background-color: #B3C0D1;
     color: #333;
@@ -66,6 +68,7 @@ const handleAdd = () => {
 .el-aside {
     color: #333;
 }
+
 .card-header {
     display: flex;
     justify-content: space-between;
