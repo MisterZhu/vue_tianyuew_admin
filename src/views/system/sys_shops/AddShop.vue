@@ -108,7 +108,7 @@ const addCategory = async () => {
 
   if (res.code === 200) {
     ElMessage.success('添加成功')
-    router.push('/sys_dictionary')
+    router.push('/sys_shops')
   } else {
     ElMessage.error('操作失败')
     throw new Error('操作失败')
