@@ -128,6 +128,22 @@ const routes = [
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/system/sys_dictionary/AddDictionary.vue')
       },
+      {
+        path: "sys_shops",
+        name: "sys_shops",
+        meta:{
+          title:'商家配置'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/system/sys_shops/ShopsIndex.vue')
+      },
+      {
+        path: "sys_shops/create",
+        name: "sys_shops_create",
+        meta:{
+          title:'新增商家'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/system/sys_shops/AddShop.vue')
+      },
     ],
   },
   {

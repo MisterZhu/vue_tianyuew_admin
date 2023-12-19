@@ -82,6 +82,10 @@ import { isCollapse } from "./isCollapse";
                         <el-icon><IEpClock /></el-icon>
                         <span>审核字典</span>
                     </el-menu-item>
+                    <el-menu-item index="/sys_shops">
+                        <el-icon><IEpClock /></el-icon>
+                        <span>商家配置</span>
+                    </el-menu-item>
                 </el-sub-menu>
             </el-sub-menu>
 

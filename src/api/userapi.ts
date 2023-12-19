@@ -56,6 +56,23 @@ export type ConfigItem = {
     name: string
     title: string
 }
+export type ShopItem = {
+    ID: number;
+    CreatedAt: string;
+    UpdatedAt: string;
+    DeletedAt: string;
+    in_maintenance: boolean;
+    negotiable: boolean;
+    state: number;
+    posts_type: number;
+    user_id: string;
+    telephone: string;
+    wei_xin: string;
+    title: string;
+    img_url: string;
+    annual_rent: string;
+    address: string;
+}
 // export const geAllCategorys = (params = {}) => {
 //     return Service<Common<CategoryItem[]>>({
 //         url:'/category/getn',
@@ -236,6 +253,41 @@ export class HttpService {
     public deleteConfig = (params = {}) => {
         return Service<Common<ConfigItem[]>>({
             url: process.env.VUE_APP_CONFIG_DET,
+            method: 'post',
+            data: params
+        })
+    }
+
+    // ------------------------------商店配置API
+    //商店配置
+    public addShop = (params = {}) => {
+        return Service<Common<ShopItem[]>>({
+            url: process.env.VUE_APP_SHOP_ADD,
+            method: 'post',
+            data: params
+        })
+    }
+    // 获取所有商店
+    public geAllShop = (params = {}) => {
+        return Service<Common<ShopItem[]>>({
+            url: process.env.VUE_APP_SHOP_GET,
+            method: 'post',
+            data: params
+        })
+    }
+
+    // 商家配置操作
+    public checkShop = (params = {}) => {
+        return Service<Common<ShopItem[]>>({
+            url: process.env.VUE_APP_SHOP_CHECK,
+            method: 'post',
+            data: params
+        })
+    }
+    // 删除商店
+    public deleteShop = (params = {}) => {
+        return Service<Common<ShopItem[]>>({
+            url: process.env.VUE_APP_SHOP_DET,
             method: 'post',
             data: params
         })
