@@ -14,7 +14,7 @@ export function useAuthApply() {
     //获取所有申请
     const getAllAuthApply = async () => {
         // @ts-ignore
-        const res = await server.userApi.geAllAuthApplys()
+        const res = await server.userApi.geAllAuthApplys({ "page": 0, "size": 100 })
         if (res.code === 200) {
             allAuthApplys.value = res.data
             // for (const authApply of allAuthApplys.value) {
