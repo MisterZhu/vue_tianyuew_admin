@@ -9,12 +9,13 @@ export function useAuthApply() {
     const allAuthApplys = ref([] as AuthApplyItem[])
 
     const AuthApplyItem = ref<AuthApplyItem>();
+    const totalItems = ref(0);
 
     var AuthApplyid = ""
     //获取所有申请
-    const getAllAuthApply = async () => {
+    const getAllAuthApply = async (page: number, size: number) => {
         // @ts-ignore
-        const res = await server.userApi.geAllAuthApplys({ "page": 0, "size": 100 })
+        const res = await server.userApi.geAllAuthApplys({ "page": page-1, "size": size })
         if (res.code === 200) {
             allAuthApplys.value = res.data
             // for (const authApply of allAuthApplys.value) {
@@ -29,7 +30,7 @@ export function useAuthApply() {
             //     console.log("Created At:", authApply.CreatedAt);
             //     console.log("--------------------------");
             // }
-
+            totalItems.value = res.totalNum
         } else {
             ElMessage.error('获取申请列表失败')
             throw new Error(res.msg || '网络异常')
@@ -47,7 +48,7 @@ export function useAuthApply() {
         const res = await server.userApi.checkAuthApplys(formData)
         if (res.code === 200) {
             ElMessage.success("审核成功")
-            getAllAuthApply()
+            getAllAuthApply(1,10)
         } else {
             ElMessage.error('审核失败')
             throw new Error(res.msg || '网络异常')
@@ -64,7 +65,7 @@ export function useAuthApply() {
         const res = await server.userApi.checkAuthApplys(formData)
         if (res.code === 200) {
             ElMessage.success("操作成功")
-            getAllAuthApply()
+            getAllAuthApply(1,10)
         } else {
             ElMessage.error('操作失败')
             throw new Error(res.msg || '网络异常')
@@ -89,12 +90,12 @@ export function useAuthApply() {
         const res = await server.userApi.deleteAuthApplys({ "id": id })
         if (res.code === 200) {
             ElMessage.success("删除成功")
-            getAllAuthApply()
+            getAllAuthApply(1,10)
         } else {
             ElMessage.error('删除失败')
             throw new Error(res.msg || '网络异常')
         }
     }
 
-    return { getAllAuthApply, allAuthApplys, authApplyApprove, authApplyReject, AuthApplyItem, deleteAuthApply }
+    return { getAllAuthApply, totalItems, allAuthApplys, authApplyApprove, authApplyReject, AuthApplyItem, deleteAuthApply }
 }
