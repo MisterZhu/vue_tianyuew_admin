@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { useAuthApply } from "./useAuthApply"
-const { getAllAuthApply, allAuthApplys, authApplyApprove, authApplyReject, deleteAuthApply } = useAuthApply()
+const { getAllAuthApply, totalItems, allAuthApplys, authApplyApprove, authApplyReject, deleteAuthApply } = useAuthApply()
 let router = useRouter()
 const dialogVisible = ref(false)
 const selectedImage = ref('')
 
-getAllAuthApply()
+const currentPage = ref(1);
+const pageSize = ref(10); // Default page size
+
+getAllAuthApply(1,10)
 
 const handleAdd = () => {
     // ? 跳转路由
@@ -61,6 +64,25 @@ const handleImagePreview = (url: string) => {
         callback: closeImageDialog,
     });
 };
+// Get auth applies based on pagination
+const getPagedAuthApplys = (page: number, size: number) => {
+  getAllAuthApply(page, size);
+};
+
+// Watch for changes in currentPage or pageSize and update the data accordingly
+watchEffect(() => {
+  getPagedAuthApplys(currentPage.value, pageSize.value);
+});
+
+// Handle size change event
+const handleSizeChange = (newSize: number) => {
+  pageSize.value = newSize;
+};
+
+// Handle current page change event
+const handleCurrentChange = (newPage: number) => {
+  currentPage.value = newPage;
+};
 
 </script>
 
@@ -99,7 +121,15 @@ const handleImagePreview = (url: string) => {
                 <!-- 添加更多状态的判断... -->
             </el-table-column>
         </el-table>
-
+        <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalItems"
+    ></el-pagination>
     </el-card>
     <!-- 放大图片的弹窗 -->
     <el-dialog :visible.sync="dialogVisible" width="60%" center @close="closeImageDialog111">
