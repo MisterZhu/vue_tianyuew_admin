@@ -12,12 +12,14 @@ let route = useRoute()
 
 const server = inject('server')
 console.log(route.params)
-// 获取id参数
-const id = route.query.id as string
-// 获取code参数
-const code = route.query.code as string
-// 获取state参数
-const state = route.query.state as string
+const id = parseInt(route.query.id as string, 10);
+const code = route.query.code as string;
+const state = parseInt(route.query.state as string, 10);
+
+
+// 确保转换后的值是有效的数字，如果无效则使用默认值
+const validId = isNaN(id) ? 0 : id;
+const validState = isNaN(state) ? 0 : state;
 
 const videoSrc = ref()
 
@@ -32,7 +34,7 @@ const parentEdit = (val: string) => {
 //获取分类下的所有文章
 const getCateAllArticles = async () => {
     // @ts-ignore
-    const res = await server.userApi.getCateArticles({ "id": id })
+    const res = await server.userApi.getCateArticles({ "id": validId })
     if (res.code === 200) {
         allArticle.value = res.data
     } else {
@@ -43,7 +45,7 @@ const getCateAllArticles = async () => {
 //获取分类详情
 const getCateDetail = async () => {
     // @ts-ignore
-    const res = await server.userApi.getCategoryDetail({ "id": id })
+    const res = await server.userApi.getCategoryDetail({ "id": validId })
     if (res.code === 200) {
         cateItem.value = res.data
     } else {

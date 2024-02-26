@@ -240,7 +240,8 @@ const handleLogout = async () => {
         <!-- 下拉菜单 -->
         <el-dropdown>
             <span class="el-dropdown-link">
-                <el-avatar :size="32" :src="userInfo.avater" />
+                <!-- <el-avatar :size="32" :src="userInfo.avater" /> -->
+                <img class="animated-avatar" src="../../assets/test3.webp" alt="User Avatar">
 
                 <el-icon class="el-icon--right">
                     <IEpArrow-down />
@@ -258,6 +259,13 @@ const handleLogout = async () => {
 </template>
   
 <style scoped>
+.animated-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer; /* 可选，添加鼠标指针样式 */
+  /* 可以添加其他样式以适应你的设计需求 */
+}
 .tag-nav {
     display: flex;
     height: 55px;
