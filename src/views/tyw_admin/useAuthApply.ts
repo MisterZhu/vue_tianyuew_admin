@@ -75,15 +75,15 @@ export function useAuthApply() {
     //删除
     const deleteAuthApply = async (id: number) => {
 
-        // // 1.弹框询问
-        // await ElMessageBox.confirm("确定要删除该视频吗？", "删除提醒", {
-        //     confirmButtonText: "确认",
-        //     cancelButtonText: "取消",
-        //     type: 'warning'
-        // }).catch(() => {
-        //     ElMessage.info("删除操作取消")
-        //     return new Promise(() => { })
-        // })
+       // 1.弹框询问
+       await ElMessageBox.confirm("确定要删除该认证吗？", "删除提醒", {
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+        type: 'warning'
+    }).catch(() => {
+        ElMessage.info("删除操作取消")
+        return new Promise(() => { })
+    })
 
         // 2.执行删除
         // @ts-ignore

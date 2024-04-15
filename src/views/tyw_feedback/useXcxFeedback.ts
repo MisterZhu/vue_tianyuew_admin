@@ -78,7 +78,7 @@ export function useXcxFeedback() {
     const deleteArticle = async (id: number) => {
 
         // 1.弹框询问
-        await ElMessageBox.confirm("确定要删除该视频吗？", "删除提醒", {
+        await ElMessageBox.confirm("确定要删除该文章吗？", "删除提醒", {
             confirmButtonText: "确认",
             cancelButtonText: "取消",
             type: 'warning'

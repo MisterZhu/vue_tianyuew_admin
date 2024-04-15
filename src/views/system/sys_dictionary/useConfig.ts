@@ -49,15 +49,15 @@ export function useConfig() {
     //删除
     const deleteConfigs = async (id: number) => {
 
-        // // 1.弹框询问
-        // await ElMessageBox.confirm("确定要删除该视频吗？", "删除提醒", {
-        //     confirmButtonText: "确认",
-        //     cancelButtonText: "取消",
-        //     type: 'warning'  
-        // }).catch(() => {
-        //     ElMessage.info("删除操作取消")
-        //     return new Promise(() => { })
-        // })
+        // 1.弹框询问
+        await ElMessageBox.confirm("确定要删除该配置吗？", "删除提醒", {
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            type: 'warning'  
+        }).catch(() => {
+            ElMessage.info("删除操作取消")
+            return new Promise(() => { })
+        })
 
         // 2.执行删除
         // @ts-ignore
